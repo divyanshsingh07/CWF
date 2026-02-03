@@ -1,0 +1,318 @@
+@import "tailwindcss";
+
+/* Configure dark mode for Tailwind CSS v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Smooth theme transition when toggling dark mode */
+html {
+  transition: background-color 0.25s ease;
+}
+
+/* Focus visible for keyboard accessibility — consistent ring */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(14 165 233);
+  outline-offset: 2px;
+}
+
+.dark :focus-visible {
+  outline-color: rgb(56 189 248);
+}
+
+:root {
+  --color-primary: #40C4C4;        /* Soft Teal */
+  --color-primary-mid: #5DADE2;    /* Sky Blue */
+  --color-accent: #9B59B6;         /* Lavender */
+  --color-success: #2ECC71;        /* Mint Green */
+  --color-warning: #F5A623;        /* Soft Orange */
+  --color-text-main: #023E8A;      /* Deep Navy */
+  --color-text-secondary: #6B7280; /* Slate Gray */
+  --color-bg-light: #F8FBFF;       /* Ice White */
+  --color-border-light: #E5EAF0;   /* Light Gray */
+}
+
+/* Prevent horizontal scroll and smooth scrolling */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem; /* Account for fixed navbar */
+}
+
+/* Ensure sections account for fixed navbar when scrolling */
+section[id] {
+  scroll-margin-top: 6rem; /* Responsive: adjusts for navbar height */
+}
+
+@media (min-width: 640px) {
+  html {
+    scroll-padding-top: 7rem;
+  }
+  section[id] {
+    scroll-margin-top: 7rem;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 8rem;
+  }
+  section[id] {
+    scroll-margin-top: 8rem;
+  }
+}
+
+/* Base typography and background */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #F0FAFF 0%, #FFFFFF 100%);
+  font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  transition: background 0.2s ease;
+}
+
+/* Dark mode body background - zinc-800 */
+html.dark body {
+  background: #27272a;
+}
+
+/* Footer: solid opaque background in dark mode - no transparency */
+html.dark .footer-solid {
+  background-color: #09090b !important;
+  background-image: none !important;
+}
+
+/* Hero background grid — always visible, light and dark */
+.hero-grid-bg {
+  position: relative;
+}
+
+.hero-grid-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: 4rem 4rem;
+  background-image:
+    linear-gradient(to right, rgba(39, 39, 42, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(39, 39, 42, 0.1) 1px, transparent 1px);
+}
+
+html.dark .hero-grid-bg::before {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+}
+
+/* Headings use Mulish */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Mulish', 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+  font-weight: 700;
+}
+
+/* Decorative gradient blob used in hero */
+.blob {
+  position: absolute;
+  inset: auto;
+  width: 28rem;
+  height: 28rem;
+  filter: blur(60px);
+  opacity: 0.35;
+  background: radial-gradient(circle at 30% 30%, var(--color-primary) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, var(--color-primary-mid) 0%, transparent 55%);
+}
+
+/* Subtle pulse glow for hero icon */
+.pulse-glow {
+  box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.35);
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.45); }
+  70% { box-shadow: 0 0 0 20px rgba(0, 180, 216, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0); }
+}
+
+/* Coral variant for heart center */
+.pulse-glow-coral {
+  box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.35);
+  animation: pulseGlowCoral 2.6s infinite;
+}
+
+@keyframes pulseGlowCoral {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.45); }
+  70% { box-shadow: 0 0 0 22px rgba(255, 107, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+}
+
+/* Soft pulse for map pins / activity dots */
+.pulse-soft {
+  animation: pulseSoft 3.2s ease-in-out infinite;
+}
+
+@keyframes pulseSoft {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* Animation delay utilities */
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-1500 {
+  animation-delay: 1.5s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-2500 {
+  animation-delay: 2.5s;
+}
+
+/* Slow, organic gradient motion for hero background */
+.hero-gradient-soft {
+  animation: heroGradientSoft 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroGradientSoft {
+  0% {
+    opacity: 0.9;
+    transform: translate3d(0px, 0px, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(-8px, -10px, 0) scale(1.03);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translate3d(10px, 6px, 0) scale(1.02);
+  }
+}
+
+/* Floating animations for circular cards */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delay-1 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.animate-float-delay-2 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+.animate-float-delay-3 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-float-delay-4 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+.animate-float-delay-5 {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Blob animation for hero background */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Custom Scrollbar Styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.5) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(56, 189, 248, 0.5);
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(56, 189, 248, 0.7);
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: rgba(56, 189, 248, 0.6) transparent;
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(56, 189, 248, 0.6);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(56, 189, 248, 0.8);
+}
+
