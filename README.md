@@ -7,6 +7,7 @@ A full-stack SaaS application for creating, managing, and subscribing to online 
 ## Table of Contents
 
 - [Overview](#overview)
+- [Screenshots](#screenshots)
 - [Start to End: How the Application Runs](#start-to-end-how-the-application-runs)
 - [Architecture](#architecture)
 - [Complete Application Structure](#complete-application-structure)
@@ -33,6 +34,58 @@ A full-stack SaaS application for creating, managing, and subscribing to online 
 | **Guest**  | Browse courses and course details only; must log in to subscribe. |
 
 The frontend is a single-page application (React + Vite) that talks to a REST API (Node.js + Express). Data is stored in MongoDB; file uploads use local storage in development and can use **AWS S3 + CloudFront** in production.
+
+---
+
+## Screenshots
+
+### Landing page
+
+Hero section with promo banner (Black Friday 50% off, code **BFSALE25**), role-based nav (Teacher: Dashboard; Student: Browse courses), and platform stats.
+
+![Landing page](apiss/landingpage.png)
+
+### Teacher — Create new course
+
+Form for course title, description (0/1000), price (USD), and optional thumbnail. Route: `/add-course`.
+
+![Teacher - Create New Course](apiss/teachernewcourseadd.png)
+
+### Teacher — Course content management
+
+Manage content for a course: add/edit/delete items (video, document, note, link). Route: `/course-manage/:id`.
+
+![Teacher - Course Content Management](apiss/teachercoursecontent.png)
+
+### Teacher — Dashboard
+
+Overview: total courses, students, subscriptions, revenue; “Your Courses” with per-course stats; recent enrollments. Data from `GET /api/courses/dashboard`.
+
+![Teacher Dashboard](apiss/teachedash.png)
+
+### Student — My Courses (enrolled list)
+
+Enrolled courses with thumbnails, enrollment date, price paid, promo used (e.g. BFSALE25), “Continue Learning” and “View Details.” Route: `/my-courses`. Data from `GET /api/subscribe/my-courses`.
+
+![Student - My Courses](apiss/studentcourse%20list.png)
+
+### Student — Course content view (lesson)
+
+Sidebar with lesson list; main area with video/content. Route: `/course/:courseId/content`. Uses `GET /api/content/course/:courseId`.
+
+![Student - Course Content View](apiss/studentdashboard.png)
+
+### Course detail with promo
+
+Course info, “Have a promo code?” with apply; original price, discount (e.g. 50%), final price; “Subscribe for $X.XX.” Uses `POST /api/subscribe/validate-promo` and `POST /api/subscribe`.
+
+![Course Detail with Promo](apiss/promopage.png)
+
+### API example — Create course (Postman)
+
+`POST /api/courses` with JSON body (title, description, price, thumbnail). Response: `201 Created` with course object including `_id`, `instructor`, `isPublished`, timestamps.
+
+![POST /api/courses - Postman](apiss/postapicourses.png)
 
 ---
 
