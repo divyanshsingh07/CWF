@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { coursesAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { formatPriceINR } from '../lib/utils';
 
 const TRANSITION = { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] };
 
@@ -164,7 +165,7 @@ export default function TeacherDashboard() {
                   Total Revenue
                 </p>
                 <p className="text-2xl font-bold text-zinc-900 dark:text-white tabular-nums">
-                  ${(dashboard?.overview?.totalRevenue || 0).toFixed(2)}
+                  {formatPriceINR(dashboard?.overview?.totalRevenue ?? 0)}
                 </p>
               </div>
             </div>
@@ -234,7 +235,7 @@ export default function TeacherDashboard() {
                           </h3>
                           <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
                             <span className="font-medium">
-                              {course.price > 0 ? `$${course.price.toFixed(2)}` : 'Free'}
+                              {course.price > 0 ? formatPriceINR(course.price) : 'Free'}
                             </span>
                             <span>•</span>
                             <span>{course.totalSubscriptions || 0} students</span>
@@ -243,7 +244,7 @@ export default function TeacherDashboard() {
                         <div className="flex items-center gap-3 shrink-0">
                           <div className="text-right hidden sm:block">
                             <p className="font-semibold text-sky-500 dark:text-sky-400 text-sm sm:text-base">
-                              ${(course.revenue || 0).toFixed(2)}
+                              {formatPriceINR(course.revenue ?? 0)}
                             </p>
                             <p className="text-xs text-zinc-500 dark:text-zinc-400">revenue</p>
                           </div>
@@ -261,7 +262,7 @@ export default function TeacherDashboard() {
                       <div className="mt-3 sm:hidden pt-3 border-t border-zinc-200 dark:border-zinc-700 flex items-center justify-between">
                         <span className="text-xs text-zinc-500 dark:text-zinc-400">Revenue</span>
                         <span className="font-semibold text-sky-500 dark:text-sky-400">
-                          ${(course.revenue || 0).toFixed(2)}
+                          {formatPriceINR(course.revenue ?? 0)}
                         </span>
                       </div>
                     </motion.div>
@@ -326,7 +327,7 @@ export default function TeacherDashboard() {
                             </div>
                             <div className="text-right shrink-0">
                               <p className="font-semibold text-sky-500 dark:text-sky-400 text-sm">
-                                ${(student.pricePaid || 0).toFixed(2)}
+                                {formatPriceINR(student.pricePaid ?? 0)}
                               </p>
                               {student.promoCodeUsed && (
                                 <div className="flex items-center gap-1 mt-1">
@@ -372,7 +373,7 @@ export default function TeacherDashboard() {
                               </p>
                             </div>
                             <p className="font-semibold text-sky-500 dark:text-sky-400 text-sm shrink-0">
-                              ${(sub.pricePaid || 0).toFixed(2)}
+                              {formatPriceINR(sub.pricePaid ?? 0)}
                             </p>
                           </div>
                           <div className="flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500">

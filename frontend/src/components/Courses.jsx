@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { coursesAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { formatPriceINR, getInstructorDisplayName } from '../lib/utils';
 
 export default function Courses() {
   const { isTeacher } = useAuth();
@@ -152,7 +153,7 @@ export default function Courses() {
                         ) : (
                           <span className="px-3 py-1 bg-white/90 dark:bg-gray-900/90 text-gray-900 dark:text-white text-sm font-semibold rounded-full flex items-center gap-1">
                             <CurrencyDollarIcon className="h-4 w-4" />
-                            ${course.price}
+                            {formatPriceINR(course.price)}
                           </span>
                         )}
                       </div>
@@ -172,10 +173,10 @@ export default function Courses() {
                         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                           <div className="h-6 w-6 rounded-full bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                             <span className="text-white text-xs font-semibold">
-                              {course.instructor.name?.charAt(0).toUpperCase() || 'I'}
+                              {getInstructorDisplayName(course.instructor.name, index).charAt(0).toUpperCase()}
                             </span>
                           </div>
-                          <span>{course.instructor.name || 'Instructor'}</span>
+                          <span>{getInstructorDisplayName(course.instructor.name, index)}</span>
                         </div>
                       )}
                     </div>

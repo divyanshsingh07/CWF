@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   AcademicCapIcon,
   PhotoIcon,
-  CurrencyDollarIcon,
   DocumentTextIcon,
   ArrowLeftIcon,
   CheckCircleIcon,
@@ -93,7 +92,7 @@ export default function AddCourse() {
 
   if (success) {
     return (
-      <section className="min-h-screen pt-20 flex items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/50 dark:from-gray-950 dark:via-blue-950/20 dark:to-cyan-950/20">
+      <section className="min-h-screen pt-20 flex items-center justify-center bg-linear-to-br from-slate-50 via-blue-50/30 to-cyan-50/50 dark:from-gray-950 dark:via-blue-950/20 dark:to-cyan-950/20">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -114,7 +113,7 @@ export default function AddCourse() {
   }
 
   return (
-    <section className="min-h-screen pt-20 pb-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/50 dark:from-gray-950 dark:via-blue-950/20 dark:to-cyan-950/20">
+    <section className="min-h-screen pt-20 pb-12 bg-linear-to-br from-slate-50 via-blue-50/30 to-cyan-50/50 dark:from-gray-950 dark:via-blue-950/20 dark:to-cyan-950/20">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Back Button */}
         <motion.button
@@ -134,7 +133,7 @@ export default function AddCourse() {
         >
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 mb-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-linear-to-br from-blue-500 to-cyan-500 mb-4">
               <AcademicCapIcon className="h-8 w-8 text-white" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -197,10 +196,10 @@ export default function AddCourse() {
             {/* Price */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Price (USD)
+                Price (INR)
               </label>
               <div className="relative">
-                <CurrencyDollarIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">₹</span>
                 <input
                   type="number"
                   name="price"
@@ -302,7 +301,7 @@ export default function AddCourse() {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-4 bg-linear-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>

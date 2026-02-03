@@ -12,6 +12,7 @@ import {
   TrashIcon,
 } from '@heroicons/react/24/outline';
 import { subscriptionAPI } from '../services/api';
+import { formatPriceINR } from '../lib/utils';
 
 export default function MyCourses() {
   const [subscriptions, setSubscriptions] = useState([]);
@@ -166,7 +167,7 @@ export default function MyCourses() {
                           <div className="flex items-center gap-1">
                             <CurrencyDollarIcon className="h-4 w-4" />
                             <span>
-                              Paid: ${subscription.pricePaid}
+                              Paid: {formatPriceINR(subscription.pricePaid)}
                               {subscription.promoCodeUsed && (
                                 <span className="text-green-500 ml-1">
                                   ({subscription.promoCodeUsed})
@@ -239,7 +240,7 @@ export default function MyCourses() {
             </div>
             <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 text-center shadow-lg border border-gray-200 dark:border-zinc-700">
               <div className="text-3xl font-bold text-green-500 mb-2">
-                ${subscriptions.reduce((sum, s) => sum + (s.pricePaid || 0), 0).toFixed(2)}
+                {formatPriceINR(subscriptions.reduce((sum, s) => sum + (s.pricePaid || 0), 0))}
               </div>
               <div className="text-gray-600 dark:text-gray-400">Total Invested</div>
             </div>

@@ -22,6 +22,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { coursesAPI, subscriptionAPI, contentAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { formatPriceINR, getInstructorDisplayName } from '../lib/utils';
 
 const contentTypeIcons = {
   video: VideoCameraIcon,
@@ -211,7 +212,7 @@ export default function CourseDetail() {
               {course?.instructor && (
                 <span className="flex items-center gap-1.5">
                   <UserIcon className="h-4 w-4" />
-                  {course.instructor.name || 'Instructor'}
+                  {getInstructorDisplayName(course.instructor.name, 0)}
                 </span>
               )}
               {course?.createdAt && (
@@ -235,7 +236,7 @@ export default function CourseDetail() {
                 </span>
               ) : (
                 <span className="text-xl font-bold text-gray-900 dark:text-white shrink-0">
-                  ${course?.price}
+                  {formatPriceINR(course?.price)}
                 </span>
               )}
             </div>
@@ -377,7 +378,7 @@ export default function CourseDetail() {
                               <div className="pt-3 border-t border-gray-200 dark:border-zinc-700 space-y-2 text-sm">
                                 <div className="flex justify-between text-gray-500 dark:text-gray-400">
                                   <span>Original price</span>
-                                  <span className="line-through">${course.price}</span>
+                                  <span className="line-through">{formatPriceINR(course.price)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-500 dark:text-gray-400">
                                   <span>Discount</span>
@@ -385,7 +386,7 @@ export default function CourseDetail() {
                                 </div>
                                 <div className="flex justify-between font-semibold text-gray-900 dark:text-white pt-2">
                                   <span>Final price</span>
-                                  <span className="text-sky-500">${calculateDiscountedPrice().toFixed(2)}</span>
+                                  <span className="text-sky-500">{formatPriceINR(calculateDiscountedPrice())}</span>
                                 </div>
                               </div>
                             )}
@@ -423,7 +424,7 @@ export default function CourseDetail() {
                     </>
                   ) : promoValidation?.valid ? (
                     <>
-                      Subscribe for ${calculateDiscountedPrice().toFixed(2)}
+                      Subscribe for {formatPriceINR(calculateDiscountedPrice())}
                     </>
                   ) : (
                     <>

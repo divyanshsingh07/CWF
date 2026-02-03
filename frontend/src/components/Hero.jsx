@@ -16,6 +16,7 @@ import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { coursesAPI } from '../services/api';
+import { formatPriceINR, getInstructorDisplayName } from '../lib/utils';
 
 const TRANSITION = { duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] };
 
@@ -417,9 +418,9 @@ export default function Hero() {
                             </span>
                           ) : (
                             <span className="px-2.5 py-1.5 rounded-lg bg-white/95 dark:bg-zinc-800/95 text-zinc-900 dark:text-white text-xs font-semibold shadow">
-                              ${(course.price / 2).toFixed(0)}
+                              {formatPriceINR(course.price / 2)}
                               <span className="text-zinc-400 dark:text-zinc-500 line-through ml-1">
-                                ${course.price}
+                                {formatPriceINR(course.price)}
                               </span>
                             </span>
                           )}
@@ -435,10 +436,10 @@ export default function Hero() {
                         {course.instructor && (
                           <div className="flex items-center gap-2">
                             <div className="h-6 w-6 rounded-full bg-sky-500 flex items-center justify-center text-white text-xs font-medium shrink-0">
-                              {course.instructor.name?.charAt(0).toUpperCase() || 'I'}
+                              {getInstructorDisplayName(course.instructor?.name, index).charAt(0).toUpperCase()}
                             </div>
                             <span className="text-sm text-zinc-500 dark:text-zinc-400 truncate">
-                              {course.instructor.name || 'Instructor'}
+                              {getInstructorDisplayName(course.instructor?.name, index)}
                             </span>
                           </div>
                         )}

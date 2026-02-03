@@ -8,6 +8,7 @@ import {
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
 import { subscriptionAPI } from '../services/api';
+import { formatPriceINR, getInstructorDisplayName } from '../lib/utils';
 
 export default function Checkout() {
   const { id } = useParams();
@@ -82,7 +83,7 @@ export default function Checkout() {
                   {course.title}
                 </h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                  {course.instructor?.name || 'Instructor'}
+                  {getInstructorDisplayName(course.instructor?.name, 0)}
                 </p>
               </div>
             </div>
@@ -93,7 +94,7 @@ export default function Checkout() {
             <div className="flex justify-between text-sm">
               <span className="text-gray-500 dark:text-gray-400">Original price</span>
               <span className="text-gray-900 dark:text-white line-through">
-                ${Number(originalPrice).toFixed(2)}
+                {formatPriceINR(originalPrice)}
               </span>
             </div>
             {discount && (
@@ -105,7 +106,7 @@ export default function Checkout() {
             <div className="flex justify-between pt-3 border-t border-gray-100 dark:border-zinc-700">
               <span className="font-medium text-gray-900 dark:text-white">Total</span>
               <span className="text-xl font-bold text-sky-500">
-                ${Number(finalPrice).toFixed(2)}
+                {formatPriceINR(finalPrice)}
               </span>
             </div>
           </div>
@@ -142,7 +143,7 @@ export default function Checkout() {
               ) : (
                 <>
                   <CreditCardIcon className="h-5 w-5" />
-                  Confirm payment — ${Number(finalPrice).toFixed(2)}
+                  Confirm payment — {formatPriceINR(finalPrice)}
                 </>
               )}
             </button>
