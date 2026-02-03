@@ -519,7 +519,34 @@ docker compose up --build
 
 **Error responses:** APIs return `4xx`/`5xx` with `{ success: false, message, errors? }`. Validation errors include `errors` array; some endpoints include extra fields (e.g. `originalPrice` for invalid promo).
 
-For Postman examples and screenshots, see the **Screenshots** section above.
+---
+
+### API Postman Screenshots
+
+Base URL (dev): `http://localhost:4000/api`. Protected routes use header: `Authorization: Bearer <token>`.
+
+#### Auth
+
+| Endpoint | Description | Postman |
+|----------|-------------|---------|
+| POST /api/auth/register | Register (name, email, password, role) | ![Register](apiss/apiauthregister.png) |
+| POST /api/auth/login | Login (email, password) | ![Login](apiss/apiauthlogin.png) |
+| GET /api/auth/me | Current user (protected) | ![Me](apiss/apiauthme.png) |
+
+#### Courses
+
+| Endpoint | Description | Postman |
+|----------|-------------|---------|
+| GET /api/courses | List published courses | ![Get courses](apiss/getapicourses.png) |
+| POST /api/courses | Create course (teacher) | ![Post course](apiss/postapicourses.png) |
+
+#### Subscribe
+
+| Endpoint | Description | Postman |
+|----------|-------------|---------|
+| POST /api/subscribe | Subscribe to course (courseId, promoCode) | ![Subscribe](apiss/apisubscribe.png) |
+| GET /api/subscribe/my-courses | My enrolled courses | ![My courses](apiss/apisub,ycourses.png) |
+| POST /api/subscribe/validate-promo | Validate promo code | ![Validate promo](apiss/apivalidatepromo.png) |
 
 ---
 
