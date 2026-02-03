@@ -519,7 +519,7 @@ docker compose up --build
 
 **Error responses:** APIs return `4xx`/`5xx` with `{ success: false, message, errors? }`. Validation errors include `errors` array; some endpoints include extra fields (e.g. `originalPrice` for invalid promo).
 
-For Postman examples and screenshots, see **DETAILS.md**.
+For Postman examples and screenshots, see the **Screenshots** section above.
 
 ---
 
@@ -527,7 +527,8 @@ For Postman examples and screenshots, see **DETAILS.md**.
 
 - **Backend:** Set `NODE_ENV=production`, configure `ALLOWED_ORIGINS`, then run `node server.js` (or use a process manager). For file storage in production, set S3/CloudFront env vars.
 - **Frontend:** Set `VITE_API_URL` to your backend API URL, run `npm run build`, and serve the `dist/` folder (e.g. Nginx, Vercel, Netlify).
-- **Docker:** Use `docker compose up --build` with env from `backend/.env.docker` (or equivalent). Ensure `MONGODB_URI` and other secrets are set.
+- **Docker (local dev):** `docker compose -f docker-compose.dev.yml up -d --build` (backend :4000, frontend :5173). Use `backend/.env.docker`.
+- **EC2 production:** Copy `backend/.env` to `backend/.env.prod`, set `NODE_ENV=production` and `ALLOWED_ORIGINS=http://YOUR_EC2_IP`. On EC2 run `docker compose up -d --build` (Nginx on port 80; CORS works via same-origin).
 
 ---
 
@@ -537,4 +538,4 @@ MIT (or as specified in the project).
 
 ---
 
-**MiniCourses** — Course subscription platform with full architecture documented above. For detailed flows and API usage, see **DETAILS.md**.
+**MiniCourses** — Course subscription platform with full architecture documented above.
