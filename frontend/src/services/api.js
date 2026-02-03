@@ -1,6 +1,8 @@
 // API Service - Centralized API calls
 // Use environment variable in production, fallback to localhost for development
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+const API_BASE_URL = import.meta.env.PROD
+  ? '/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:4000/api');
 
 // Helper to get auth header
 const getAuthHeader = () => {

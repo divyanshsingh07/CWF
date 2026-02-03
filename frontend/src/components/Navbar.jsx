@@ -106,7 +106,7 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
             <div className="h-9 w-9 rounded-lg bg-sky-500 flex items-center justify-center">
               <AcademicCapIcon className="h-5 w-5 text-white" />
-            </div>
+          </div>
             <span className="text-lg font-semibold text-gray-900 dark:text-white">
               MiniCourses
             </span>
@@ -116,11 +116,11 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             {/* Navigation Links — active indicator + hover */}
             <div className="flex items-center gap-0.5">
-              {navigation.map((item) => {
+            {navigation.map((item) => {
                 const isActive = isActivePath(item.href);
-                return (
+              return (
                   <Link
-                    key={item.name}
+                  key={item.name}
                     to={item.href}
                     className={`relative px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:ring-offset-2 dark:focus:ring-offset-zinc-900 ${
                       isActive
@@ -128,7 +128,7 @@ export default function Navbar() {
                         : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800'
                     }`}
                   >
-                    {item.name}
+                  {item.name}
                     {isActive && (
                       <span
                         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-sky-500 dark:bg-sky-400"
@@ -136,9 +136,9 @@ export default function Navbar() {
                       />
                     )}
                   </Link>
-                );
-              })}
-            </div>
+              );
+            })}
+          </div>
 
             {/* Divider */}
             <div className="h-5 w-px bg-gray-200 dark:bg-zinc-700" />
@@ -288,7 +288,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+      {mobileMenuOpen && (
           <motion.div
             id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
@@ -299,23 +299,23 @@ export default function Navbar() {
           >
             <div className="px-4 py-3 space-y-1">
               {/* Navigation Links */}
-              {navigation.map((item) => {
+            {navigation.map((item) => {
                 const isActive = isActivePath(item.href);
-                return (
+              return (
                   <Link
-                    key={item.name}
+                  key={item.name}
                     to={item.href}
                     className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
                       isActive
                         ? 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/20'
                         : 'text-zinc-700 dark:text-zinc-300'
                     }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
                   </Link>
-                );
-              })}
+              );
+            })}
               
               {/* Divider */}
               <div className="border-t border-zinc-100 dark:border-zinc-800 my-2" />
@@ -335,8 +335,8 @@ export default function Navbar() {
                     <p className={`text-sm ${isTeacher ? 'text-sky-600 dark:text-sky-400' : 'text-cyan-600 dark:text-cyan-400'}`}>
                         {isTeacher ? 'Teacher' : 'Student'}
                       </p>
-                    </div>
-                  </div>
+          </div>
+        </div>
 
                   {/* Dashboard/My Courses Link */}
                   {isTeacher ? (
@@ -390,6 +390,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+      </nav>
   );
 }

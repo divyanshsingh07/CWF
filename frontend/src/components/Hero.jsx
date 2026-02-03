@@ -88,8 +88,21 @@ export default function Hero() {
   const [copied, setCopied] = useState(false);
 
   const copyPromoCode = async () => {
+    const text = 'BFSALE25';
     try {
-      await navigator.clipboard.writeText('BFSALE25');
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -150,9 +163,9 @@ export default function Hero() {
         {/* Hero block */}
         <div className="text-center max-w-3xl mx-auto">
           {/* Promo badge + coupon — highly visible and prominent */}
-          <motion.div
+            <motion.div 
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05, ...TRANSITION }}
             className="mb-10"
           >
@@ -201,7 +214,7 @@ export default function Hero() {
                 </AnimatePresence>
               </motion.button>
             </div>
-          </motion.div>
+              </motion.div>
 
           {/* Headline — bold hierarchy, gradient accent */}
           <motion.h1
@@ -217,19 +230,19 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          <motion.p
+              <motion.p 
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16, ...TRANSITION }}
             className="text-lg sm:text-xl text-zinc-600 dark:text-zinc-400 mb-12 max-w-xl mx-auto leading-relaxed font-normal"
-          >
+              >
             Access premium courses from industry experts. Start learning today and transform your future.
-          </motion.p>
+              </motion.p>
 
           {/* CTAs — role-based: Teachers see Dashboard, Students see Browse courses */}
-          <motion.div
+              <motion.div 
             initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.22, ...TRANSITION }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-16"
           >
@@ -270,7 +283,7 @@ export default function Hero() {
                 <Link to="/courses" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.02, boxShadow: '0 20px 40px -12px rgba(14, 165, 233, 0.35)' }}
-                    whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.98 }}
                     transition={TRANSITION}
                     className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-base shadow-lg shadow-sky-500/25 dark:shadow-sky-500/20 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-zinc-900 transition-all duration-200"
                   >
@@ -301,7 +314,7 @@ export default function Hero() {
                 )}
               </>
             )}
-          </motion.div>
+              </motion.div>
 
           {/* Stats — icons, emphasis, count-up; responsive and aligned */}
               <motion.div 
