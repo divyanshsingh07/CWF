@@ -11,7 +11,7 @@ A full-stack SaaS application for creating, managing, and subscribing to online 
 - [Start to End: How the Application Runs](#start-to-end-how-the-application-runs)
 - [Architecture](#architecture)
 - [Complete Application Structure](#complete-application-structure)
-- [All APIs — Complete Reference](#all-apis--complete-reference)
+- [API Postman Screenshots](#api-postman-screenshots)
 - [How Promo Codes Work (End-to-End)](#how-promo-codes-work-end-to-end)
 - [How the Application Works](#how-the-application-works)
 - [Tech Stack](#tech-stack)
@@ -458,70 +458,7 @@ docker compose up --build
 
 ---
 
-## All APIs — Complete Reference
-
-**Base URL (dev):** `http://localhost:4000/api`  
-**Protected routes:** Send header `Authorization: Bearer <token>` (JWT from login/register).
-
-### Auth
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| POST | `/api/auth/register` | Public | `{ name, email, password, role? }` (role: `student` \| `teacher`) | `201`: `{ _id, name, email, role, token }` |
-| POST | `/api/auth/login` | Public | `{ email, password }` | `200`: `{ _id, name, email, role, token }` |
-| GET | `/api/auth/me` | Private | — | `200`: current user `{ _id, name, email, role }` (no password) |
-
-### Courses
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| GET | `/api/courses` | Public | — | `200`: `{ success, count, data: [courses] }` (published only; instructor populated) |
-| GET | `/api/courses/:id` | Public | — | `200`: single course (instructor populated) |
-| POST | `/api/courses` | Teacher | `{ title, description, price, thumbnail? }` | `201`: created course (`instructor = req.user._id`) |
-| PUT | `/api/courses/:id` | Teacher (owner) | `{ title?, description?, price?, thumbnail?, isPublished? }` | `200`: updated course |
-| DELETE | `/api/courses/:id` | Teacher (owner) | — | `200`: `{ success, message }` |
-| GET | `/api/courses/my-created-courses` | Teacher | — | `200`: `{ success, count, data: [courses] }` (by instructor) |
-| GET | `/api/courses/dashboard` | Teacher | — | `200`: `{ success, data: { overview: { totalCourses, totalStudents, totalSubscriptions, totalRevenue }, courseStats, recentSubscriptions } }` |
-
-### Subscribe
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| POST | `/api/subscribe` | Student | `{ courseId, promoCode? }` (promo required for paid) | `201`: `{ success, message, data: { subscriptionId, courseId, courseTitle, originalPrice, pricePaid, discount, promoCodeUsed, subscribedAt } }` |
-| GET | `/api/subscribe/my-courses` | Private | — | `200`: `{ success, count, data: [subscriptions with course populated] }` |
-| GET | `/api/subscribe/check/:courseId` | Private | — | `200`: `{ success, isSubscribed, courseId }` |
-| DELETE | `/api/subscribe/:subscriptionId` | Student (owner) | — | `200`: `{ success, message }` (free courses only) |
-| POST | `/api/subscribe/validate-promo` | Public | `{ promoCode }` | `200`: `{ success, message, data: { code, discount, description } }` |
-
-### Content
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| GET | `/api/content/course/:courseId` | Enrolled or owner | — | `200`: `{ success, count, data: [content items] }` |
-| GET | `/api/content/:id` | Enrolled or owner | — | `200`: single content item |
-| POST | `/api/content` | Teacher (course owner) | `{ courseId, title, type, videoUrl?, fileUrl?, textContent?, externalLink? }` (type: video \| document \| note \| link) | `201`: created content |
-| PUT | `/api/content/:id` | Teacher (owner) | same fields as POST | `200`: updated content |
-| DELETE | `/api/content/:id` | Teacher (owner) | — | `200`: `{ success, message }` |
-
-### Upload
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| POST | `/api/upload/file` | Teacher | `FormData` with file field | `200`: `{ success, url }` (local path or CloudFront URL) |
-| POST | `/api/upload/multiple` | Teacher | `FormData` with multiple files | `200`: `{ success, urls: [...] }` |
-| DELETE | `/api/upload/file/:filename` | Teacher | — | `200`: `{ success, message }` |
-
-### Health (backend root, no `/api`)
-
-| Method | Path | Auth | Request Body | Success Response |
-|--------|------|------|--------------|-------------------|
-| GET | `/health` | Public | — | `200`: `{ status: "ok", timestamp, uptime, environment, storage }` |
-
-**Error responses:** APIs return `4xx`/`5xx` with `{ success: false, message, errors? }`. Validation errors include `errors` array; some endpoints include extra fields (e.g. `originalPrice` for invalid promo).
-
----
-
-### API Postman Screenshots
+## API Postman Screenshots
 
 Base URL (dev): `http://localhost:4000/api`. Protected routes use header: `Authorization: Bearer <token>`.
 
