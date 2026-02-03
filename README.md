@@ -126,76 +126,10 @@ Course info, “Have a promo code?” with apply; original price, discount (e.g.
 
 ## Architecture
 
-### System Architecture (High-Level)
+### System Architecture 
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                         FRONTEND (React + Vite)                          │
-│                                                                         │
-│   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │
-│   │   Public    │  │  Protected  │  │   Student   │  │   Teacher   │  │
-│   │   Routes    │  │   Routes    │  │   Routes    │  │   Routes    │  │
-│   │ /, /courses │  │  Checkout   │  │ /my-courses│  │ /teacher-   │  │
-│   │ /login,     │  │  /course/   │  │             │  │  dashboard  │  │
-│   │ /register   │  │  :id/content│  │             │  │ /add-course │  │
-│   └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  │ /course-   │  │
-│          │                │                │          │  manage/:id │  │
-│          └────────────────┼────────────────┼──────────┴──────┬──────┘  │
-│                           │                │                 │         │
-│                    ┌──────▼────────────────▼─────────────────▼──────┐  │
-│                    │           AuthContext (JWT in localStorage)     │  │
-│                    │           api.js (centralized API base URL)     │  │
-│                    └──────────────────────┬────────────────────────┘  │
-└────────────────────────────────────────────┼────────────────────────────┘
-                                             │
-                                             │  REST API (JSON)
-                                             │  Authorization: Bearer <token>
-                                             │
-┌────────────────────────────────────────────▼────────────────────────────┐
-│                         BACKEND (Node.js + Express)                       │
-│                                                                         │
-│   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │  Security: Helmet, CORS (allowed origins), Rate limiting         │   │
-│   └─────────────────────────────────────────────────────────────────┘   │
-│                                                                         │
-│   ┌──────────┐ ┌──────────┐ ┌────────────┐ ┌──────────┐ ┌──────────┐     │
-│   │ /api/    │ │ /api/    │ │ /api/      │ │ /api/    │ │ /api/    │     │
-│   │ auth     │ │ courses  │ │ subscribe  │ │ content  │ │ upload   │     │
-│   │ login,   │ │ CRUD,    │ │ subscribe, │ │ course/  │ │ file,    │     │
-│   │ register,│ │ dashboard│ │ my-courses,│ │ :id,     │ │ multiple │     │
-│   │ me       │ │ my-      │ │ check,     │ │ CRUD     │ │ delete   │     │
-│   │          │ │ created  │ │ validate-  │ │          │ │          │     │
-│   │          │ │          │ │ promo      │ │          │ │          │     │
-│   └────┬─────┘ └────┬─────┘ └─────┬──────┘ └────┬─────┘ └────┬─────┘     │
-│        │            │             │             │            │           │
-│        └────────────┴─────────────┴──────┬──────┴────────────┴───────────┘
-│                                          │
-│   ┌─────────────────────────────────────▼─────────────────────────────┐   │
-│   │  Auth Middleware: JWT verify → req.user (role: teacher | student)  │   │
-│   └─────────────────────────────────────┬─────────────────────────────┘   │
-└──────────────────────────────────────────┼─────────────────────────────────┘
-                                           │
-┌──────────────────────────────────────────▼─────────────────────────────────┐
-│                           DATA LAYER                                        │
-│                                                                             │
-│   ┌────────────┐  ┌────────────┐  ┌──────────────┐  ┌──────────────┐       │
-│   │   User     │  │   Course   │  │ Subscription │  │ CourseContent│       │
-│   │   (Mongo)  │  │   (Mongo)  │  │   (Mongo)    │  │   (Mongo)    │       │
-│   │ name,      │  │ title,     │  │ userId,      │  │ courseId,    │       │
-│   │ email,     │  │ description│  │ courseId,    │  │ title, type, │       │
-│   │ password,  │  │ price,     │  │ pricePaid,   │  │ videoUrl,    │       │
-│   │ role       │  │ instructor │  │ promoCode   │  │ fileUrl, etc │       │
-│   └────────────┘  └────────────┘  └──────────────┘  └──────────────┘       │
-│                                          │                                 │
-│   ┌─────────────────────────────────────▼─────────────────────────────┐   │
-│   │                    MongoDB (Atlas or local)                         │   │
-│   └────────────────────────────────────────────────────────────────────┘   │
-│                                                                             │
-│   ┌────────────────────────────────────────────────────────────────────┐   │
-│   │  File Storage: Dev → uploads/ (local) | Prod → S3 + CloudFront     │   │
-│   └────────────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+![MiniCourses - System Architecture](image.png)
+
 
 ### Data Flow Summary
 
