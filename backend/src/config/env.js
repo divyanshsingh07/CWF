@@ -18,7 +18,7 @@ const requiredEnvVars = {
 };
 
 const optionalEnvVars = {
-  // AWS S3 (optional - falls back to local storage)
+  
   AWS_ACCESS_KEY_ID: null,
   AWS_SECRET_ACCESS_KEY: null,
   AWS_REGION: null,

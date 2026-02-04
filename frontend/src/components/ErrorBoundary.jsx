@@ -22,10 +22,7 @@ class ErrorBoundary extends React.Component {
       errorInfo,
     });
 
-    // TODO: Log to error reporting service (e.g., Sentry) in production
-    // if (import.meta.env.PROD) {
-    //   logErrorToService(error, errorInfo);
-    // }
+  
   }
 
   handleReset = () => {

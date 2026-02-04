@@ -1,7 +1,3 @@
-/**
- * Storage service: local filesystem (dev) or AWS S3 + CloudFront (production).
- * Set AWS env vars to use S3; otherwise uploads go to ./uploads.
- */
 
 import {
   S3Client,

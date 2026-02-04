@@ -8,9 +8,8 @@ import {
   BuildingLibraryIcon,
 } from '@heroicons/react/24/outline';
 
-// Update these with your actual profile URLs
-const GITHUB_URL = 'https://github.com/divyanshsingh';
-const LINKEDIN_URL = 'https://linkedin.com/in/divyanshsingh';
+const GITHUB_URL = 'https://github.com/divyanshsingh07';
+const LINKEDIN_URL = 'https://linkedin.com/in/divyanshsingharsh';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
